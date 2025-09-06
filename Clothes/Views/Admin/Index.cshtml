@@ -1,0 +1,85 @@
+﻿@model IEnumerable<product>
+<link href="~/css/admin/index.css" rel="stylesheet" />
+<link href="~/css/style.css" rel="stylesheet" />
+<link href="~/css/main.css" rel="stylesheet" />
+
+<div class="header">
+    <h3>Admin Dashboard</h3>
+    <p>Manage products and categories here.</p>
+</div>
+
+
+<section class="products">
+    <h3>Manage Products</h3>
+
+    <form asp-controller="Admin" asp-action="AddToProduct" method="post" enctype="multipart/form-data" class="admin-form">
+        <input type="text" name="Title" placeholder="Product Name" />
+        <textarea name="Description" placeholder="Description"></textarea>
+        <input type="number" name="Price" placeholder="Price" />
+
+        <input type="number" name="Orders[0].Quantity" placeholder="Quantity" min="1" />
+        <select name="Sizes">
+            <option value="S">Small</option>
+            <option value="M">Medium</option>
+            <option value="L">Large</option>
+            <option value="XL">X-Large</option>
+        </select>
+
+
+
+        <select name="CategoryId">
+            @foreach (var item in Model)
+            {
+                <option value="@item.category.Id">@item.category.Name</option>
+            }
+        </select>
+
+        <input type="file" name="ImageFile" />
+
+        <button type="submit">Add Product</button>
+    </form>
+
+
+    <div class="product-list">
+        @foreach (var item in Model)
+        {
+            <div class="product-card">
+                <img src="@item.ImagePath" alt="@item.Title" />
+                <h6>@item.Title</h6>
+                <p>@item.Price</p>
+                <button>Delete</button>
+                <button>Update</button>
+                <div class="update-form">
+                    <input type="text" value="@item.Title" />
+                    <input type="number" value="@item.Price" />
+                </div>
+            </div>
+        }
+    </div>
+
+</section>
+
+<!-- ------------------------ Categories ------------------------ -->
+<section class="collection">
+    <h3>Manage Categories</h3>
+
+    <form method="post" class="admin-form">
+        <input type="text" placeholder="Category Name" />
+        <button type="submit">Add Category</button>
+    </form>
+
+    <div class="collection-list">
+        @foreach (var item in Model)
+        {
+            <div class="collection-card">
+                <h4>@item.category.Name</h4>
+                <button>Delete</button>
+                <div class="update-form">
+                    <input type="text" value="@item.category.Name" />
+                    <button>Update</button>
+                </div>
+            </div>
+        }
+    </div>
+
+</section>

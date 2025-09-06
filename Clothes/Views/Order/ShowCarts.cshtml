@@ -1,0 +1,80 @@
+﻿@model IEnumerable<OrderItem>
+<link href="~/css/cartpage.css" rel="stylesheet" />
+<main class="cart_page">
+    <div class="container">
+        <h1>Shopping Bag</h1>
+        <div class="content">
+            <div class="left_side_cart">
+                <div class="cart_title">
+                    <h2>My shopping bag (@Model.Count() items)</h2>
+                </div>
+
+                <div class="cart_products">
+                    <ul class="shopping-cart">
+                        @{
+                            decimal total = 0;
+                        }
+
+                        @foreach (var item in Model)
+                        {
+                            total += item.TotalPrice;
+
+                            <li class="cart-item">
+                                <img src="@item.Image" alt="@item.ProductName" />
+                                <div class="product-info">
+                                    <h6>@item.ProductName</h6>
+                                    <div class="size">Size: @item.Size</div>
+                                    <div class="quantity">Qty: @item.Quantity</div>
+                                    <div class="price">@item.TotalPrice.ToString("C")</div>
+                                </div>
+                            </li>
+                        }
+
+                        @if (!Model.Any())
+                        {
+                            <li>Your shopping cart is empty.</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div class="right_side_cart">
+                <div class="summary">
+                    <h2>Order Summary</h2>
+                    <div class="summary_price">
+                        <div>
+                            <h4>Subtotal</h4>
+                            <span>@total.ToString("C")</span>
+                        </div>
+                        <div>
+                            <h4>Total Order</h4>
+                            <span>@total.ToString("C")</span>
+                        </div>
+                    </div>
+                    <button class="checkout" onclick="checkOut();">Check Out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- cart -->
+<div class="cart-section">
+    <div class="cart-header">
+        <h2>SHOPPING CART</h2>
+        <div class="closeCart">
+            <ion-icon name="close-outline" id="closeCart"></ion-icon>
+        </div>
+    </div>
+    <div class="cart_products">
+        <!-- add cart products in js -->
+    </div>
+    <div class="cart_total">
+        <h3>Total:</h3>
+        <span>@total.ToString("C")</span>
+    </div>
+    <div class="btn_control">
+        <button class="viewCart" onclick="viewCart();">View Cart</button>
+        <button class="checkout" onclick="checkOut();">Check Out</button>
+    </div>
+</div>

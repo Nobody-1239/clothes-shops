@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Clothes</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link href="~/css/main.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Clothes.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="container" id="header">
+        <div class="header_top">
+            <div class="header_social">
+                <a href="https://www.instagram.com/sa__fashionstyle/" target="_blank"><ion-icon name="logo-instagram"></ion-icon></a>
+                <a href="https://www.facebook.com/people/SA_Fashionstyle/" target="_blank"><ion-icon name="logo-facebook"></ion-icon></a>
+                <a href="https://wa.me/201007738790" target="_blank"><ion-icon name="logo-whatsapp"></ion-icon></a>
+            </div>
+            <img src="~/images/logo_block.jpg" alt="page logo" id="logo" />
+            <div class="header_actions">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark">@User.Identity.Name</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark">   </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area=""
+                        asp-controller="Account"
+                        asp-action="Logout">logout</a>
+                    </li>
+                }
+                else
+                {
+                    <a asp-controller="Account"
+                    asp-action="Login" title="Login" id="login_btn">
+                        <ion-icon name="person-circle-outline"></ion-icon>
+                    </a>
+                }
+                <a asp-controller="Order" asp-action="ShowCarts" class="icon-cart">
+                    <ion-icon name="cart-outline"></ion-icon>
+                </a>
+            </div>
+        </div>
+        <nav id="navbar">
+            <menu>
+                <ul>
+                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-controller="Product" asp-action="Show">Shop</a></li>
+                    <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                </ul>
+            </menu>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-logo">
+                <img src="~/images/logo_block.jpg" alt="logo" width="140" />
+                <p>The customer is at the heart of our unique business model, which includes design.</p>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-company-name">
+                    © 2024 All rights reserved. Made with <ion-icon name="heart"></ion-icon>
+                    by <a href="https://www.upwork.com/freelancers/~01a11a163a8ee98a35" id="author">Amira Alaa</a>
+                </p>
+            </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="~/javascript/main.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

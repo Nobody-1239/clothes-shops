@@ -1,0 +1,53 @@
+﻿@model Clothes.Models.UserViewModel
+
+@{
+    ViewData["Title"] = "SignUp";
+}
+
+<link href="~/css/login.css" rel="stylesheet" />
+
+<section id="login">
+    <div class="container">
+        <h1 class="section-header">Account</h1>
+
+        <form asp-controller="Account" asp-action="Login" method="post" id="form">
+            <input type="text" asp-for="FirstName" placeholder="First Name" id="fname" required />
+            <input type="text" asp-for="LastName" placeholder="Last Name" id="lname" required />
+            <input type="email" asp-for="Email" placeholder="Email" id="email" required />
+            <input type="password" asp-for="Password" placeholder="Password" id="password" required />
+
+            <div class="submit">
+                <button type="submit" id="btn-login">Login</button>
+                <a asp-controller="Home" asp-action="Index">Return to store</a>
+            </div>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        document.getElementById('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var email = document.getElementById('email').value;
+
+            fetch('/Account/CheckEmailExists?email=' + encodeURIComponent(email))
+            .then(response => response.json())
+            .then(data => {
+                if (!data.exists) {
+                    if (confirm("Account with this email not found. Do you want to create a new account?")) {
+                        e.target.submit();
+                    } else {
+                        alert("You canceled account creation.");
+                    }
+                } else {
+                    e.target.submit();
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Error checking email.");
+            });
+        });
+    </script>
+}

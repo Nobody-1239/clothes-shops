@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Category>
+<link href="~/css/products.css" rel="stylesheet" />
+
+<div class="shop_categories">
+    <ul>
+    @foreach (var item in Model)
+        {
+            <a asp-controller="Product" asp-action="Categories" asp-route-categoryId="@item.Id" class="categories_link">@item.Name</a>
+        }
+    </ul>
+</div>

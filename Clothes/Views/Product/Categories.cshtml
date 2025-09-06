@@ -1,0 +1,20 @@
+﻿@model IEnumerable<product>
+
+<link href="~/css/products.css" rel="stylesheet" />
+
+<div class="products">
+    <div class="content">
+        @foreach (var item in Model)
+        {
+            <div class="card">
+                <img src="@item.ImagePath" />
+                <div class="card-body">
+                    <h6 class="card-title">@item.Title</h6>
+                    <a asp-action="Detail"
+                       asp-controller="Home"
+                       asp-route-id="@item.ID">see detail</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

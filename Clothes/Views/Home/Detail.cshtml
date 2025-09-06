@@ -1,0 +1,42 @@
+﻿@model IEnumerable<product>
+<link href="~/css/productdetails.css" rel="stylesheet" />
+
+<main>
+    <div class="container">
+        @foreach (var item in Model)
+        {
+            <div class="productDetails">
+                <div class="images">
+                    <img src="@item.ImagePath" alt="@item.Title" />
+                </div>
+
+                <div class="details">
+                    <h2 class="product_name">@item.Title</h2>
+                    <h3 class="product_price">$@item.Price</h3>
+
+                    <!-- ✅ Size and stock list -->
+                    <div class="product_sizes">
+                        <h4>Available Sizes:</h4>
+                        <ul>
+                            <form method="post" asp-controller="Order" asp-action="AddToCart">
+                                <input type="hidden" name="productId" value="@item.ID" />
+
+                                <label for="sizeId"><strong>Select Size:</strong></label>
+                                <select name="sizeId" id="sizeId" required>
+                                    @foreach (var size in item.Size)
+                                    {
+                                        <option value="@size.Id">@size.Sizes (Stock: @size.Stock)</option>
+                                    }
+                                </select>
+                                <div class="buttons">
+                                    <button type="submit" class="btn_add">Add to Cart</button>
+                                </div>
+                            </form>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</main>
