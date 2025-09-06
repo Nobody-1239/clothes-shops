@@ -57,5 +57,5 @@ Clothes/
 ## 📽️ Demo
 
 Watch the demo video here:  
-[![Watch the video](https://uupload.ir/view/1_93ej.mp4/)
+(https://uupload.ir/view/1_93ej.mp4/)
 
